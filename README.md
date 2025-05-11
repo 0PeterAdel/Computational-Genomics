@@ -1,23 +1,16 @@
-# Cancer Classification Project Using Genomic and Methylation Data
+# Computational Genomics
 
-This project focuses on classifying cancer patients using mutation and methylation data. The code implements feature engineering, visualization, and machine learning classification for two tasks: Task 1 (using mutation data only) and Task 2 (using combined mutation and methylation data).
+Computational Genomics is a project focused on classifying cancer patients using genomic mutation and methylation data. This repository provides scripts for feature engineering, visualization, and machine learning classification, enabling two tasks: Task 1 (classification using mutation data only) and Task 2 (classification using combined mutation and methylation data). The project is optimized for environments with GPU support but can also run on CPU, making it suitable for a variety of hardware configurations.
 
-## Prerequisites
-- **Python 3.8+**
-- **Required Libraries**:  
-  Install all necessary dependencies using the following command:
-  ```bash
-  pip install pandas numpy matplotlib scikit-learn xgboost cudf torch
-  ```
-- **GPU-Supported Environment**:  
-  - Highly recommended for performance optimization (especially for XGBoost with `device='cuda'`).  
-  - If using Google Colab, enable GPU support (Runtime > Change runtime type > GPU).
+The training data consists of mutation and methylation datasets, which are processed into features for machine learning models. The raw datasets are available in the `DataSet/` folder, and the project includes scripts to generate visualizations and predictions for analysis.
 
-## Project Structure
-The following directory structure outlines the organization of files and folders in the project:
+![Genomics](https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExN3IwbjduemRsaXZ4OHRwbmZyZjYyNHoxZWoxaGxhbW1mN2RjMDc4MSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/uHV4veFjX22Pu/giphy.gif)
+
+## 📦 Project Structure
+
 ```
 Computational-Genomics/
-├── DataSet/
+├── DataSet/                    # Contains the raw datasets for training and testing
 │   ├── 100_genes.csv           # List of 100 predefined genes
 │   ├── train_muts_data.csv     # Mutation data for training
 │   ├── test_muts_data.csv      # Mutation data for testing
@@ -26,69 +19,109 @@ Computational-Genomics/
 │   ├── train_meth_data.csv     # Methylation data for training
 │   └── test_meth_data.csv      # Methylation data for testing
 ├── extract_sequences.py        # Script for sequence extraction (not directly used in this code)
-├── Instructions/
+├── Instructions/               # Contains project documentation and references
 │   ├── Challenge_2025.pdf      # Project challenge document
 │   ├── Main_text_npj.pdf       # Scientific reference
 │   ├── PAPER1.pdf              # Additional scientific reference
-│   └── תרגול 4 - אתגר הקורס.pdf  # Educational document
+│   └── pptx.pdf                # Presentation or additional instructional material
 ├── main.ipynb                  # Main project code (Jupyter Notebook)
-└── output/
-    ├── mutation_distribution_by_variant.png  # Bar chart of mutation distribution by variant type
-    ├── mutation_distribution_by_gene.png     # Bar chart of mutation distribution by top 20 genes
-    ├── task1_predictions.csv                 # Predictions for Task 1
-    └── task2_predictions.csv                 # Predictions for Task 2
+├── main.py                     # Main project code (Python script)
+├── output/                     # Contains generated outputs (predictions and visualizations)
+│   ├── mutation_distribution_by_variant.png  # Bar chart of mutation distribution by variant type
+│   ├── mutation_distribution_by_gene.png     # Bar chart of mutation distribution by top 20 genes
+│   ├── task1_predictions.csv                 # Predictions for Task 1
+│   └── task2_predictions.csv                 # Predictions for Task 2
+├── README.md                   # This file, providing project instructions and details
+└── requirements.txt            # File listing all required Python libraries
 ```
 
-## Installation and Usage
+## 🚀 Installation
 
-### 1. Install Dependencies
-Ensure all required libraries are installed by running:
+### 1. Clone the Repository
+
 ```bash
-pip install pandas numpy matplotlib scikit-learn xgboost cudf torch
+git clone https://github.com/0PeterAdel/Computational-Genomics.git
+cd Computational-Genomics
 ```
 
-### 2. Organize Data
-- Place all CSV data files in the `DataSet/` directory as shown in the project structure.
-- If using Google Colab, upload the `DataSet/` folder to `/content/work`:
-  - Use the following Python command to change the directory:
-    ```python
-    import os
-    os.chdir('/content/work')
-    ```
+### 2. Set Up the Environment
 
-### 3. Run the Code
-- **Using Jupyter Notebook**:
-  - Launch Jupyter Notebook:
-    ```bash
-    jupyter notebook
-    ```
-  - Open and run all cells in `main.ipynb`.
-  - If using Google Colab, upload `main.ipynb` and run it directly.
-- **Using Python Script (Optional)**:
-  - Convert the notebook to a Python script:
-    ```bash
-    jupyter nbconvert --to script main.ipynb
-    ```
-  - Run the script:
-    ```bash
-    python main.py
-    ```
+#### Option 1: Using Conda
+Create a new Conda environment with Python 3.8:
 
-### 4. Outputs
-- **Predictions**:
-  - `output/task1_predictions.csv`: Contains predictions for Task 1 (mutation-based classification).
-  - `output/task2_predictions.csv`: Contains predictions for Task 2 (combined mutation and methylation classification).
-- **Visualizations**:
-  - `output/mutation_distribution_by_variant.png`: Bar chart showing the distribution of mutations by variant type.
-  - `output/mutation_distribution_by_gene.png`: Bar chart showing the mutation distribution for the top 20 genes.
+```bash
+conda create -n genomics python=3.8
+conda activate genomics
+```
 
-## Important Notes
-- **GPU Enablement**:
-  - Ensure GPU is enabled in Google Colab for optimal performance (Runtime > Change runtime type > GPU).
-  - The code checks for GPU availability using `torch.cuda.is_available()` and will terminate if GPU is not detected.
-- **Input Data Requirements**:
-  - Ensure all input CSV files contain the required columns (e.g., `case_id`, `Gene_name`, `beta_val` for methylation files, and `Variant_Classification` for mutation files).
-- **Troubleshooting**:
-  - If you encounter errors, verify that all libraries are correctly installed and that the data files are properly uploaded.
-- **File Path Adjustments**:
-  - If running outside Colab, adjust the `os.chdir()` path to match your local directory structure (e.g., `os.chdir('DataSet/')`).
+#### Option 2: Using Python Virtual Environment
+Create a virtual environment using `venv`:
+
+```bash
+python -m venv .venv
+```
+
+Activate the virtual environment:
+
+- **On Windows**:
+  ```bash
+  .venv\Scripts\activate
+  ```
+
+- **On Linux/macOS**:
+  ```bash
+  source .venv/bin/activate
+  ```
+
+### 3. Install Required Dependencies
+
+Install the necessary dependencies (including `cudatoolkit` for GPU support if using Conda):
+
+#### If Using Conda:
+```bash
+conda install -c conda-forge cudatoolkit=11.7
+pip install -r requirements.txt
+```
+
+#### If Using Virtual Environment:
+```bash
+pip install -r requirements.txt
+```
+
+The `requirements.txt` file includes libraries such as `pandas`, `numpy`, `matplotlib`, `scikit-learn`, `xgboost`, `cudf`, and `torch`.
+
+## Usage
+
+After setting up the environment and ensuring the datasets are in the `DataSet/` folder, you can run the project using either the Jupyter Notebook or the Python script.
+
+### Option 1: Using Jupyter Notebook
+- **On Windows**:
+  ```bash
+  jupyter notebook
+  ```
+- **On Linux/macOS**:
+  ```bash
+  jupyter notebook
+  ```
+Open `main.ipynb` in the Jupyter interface and run all cells.
+
+### Option 2: Using Python Script
+- **On Windows**:
+  ```bash
+  python main.py
+  ```
+- **On Linux/macOS**:
+  ```bash
+  python main.py
+  ```
+
+Make sure to adjust the working directory in the script (`os.chdir('/content/work')`) if running outside Google Colab (e.g., `os.chdir('DataSet/')` for local execution).
+
+---
+
+🤍 Thank you for checking out **Computational Genomics**! Happy analyzing!
+
+
+<p align="center">
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&height=65&section=footer"/>
+</p>
