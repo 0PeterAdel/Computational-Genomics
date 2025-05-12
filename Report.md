@@ -3,7 +3,6 @@
 ## 1. Cover Page
 - **Project Title:** *Classification of Cancer Patients Using Genomic Mutation and Methylation Data*
 - **Author:** Taqwa
-- **Date:** May 12, 2025
 
 ---
 
@@ -177,9 +176,6 @@ Currently, the code generates only two visualizations (`mutation_distribution_by
   plt.close()
   ```
 
-#### Table Formatting Consistency
-All tables use horizontal lines (`|`) with centered text alignment for uniformity, ensuring a clean and professional presentation.
-
 ### D. Additional Improvements
 1. **Data Expansion:** Incorporate RNA-seq data to capture transcriptional effects of mutations and methylation.
 2. **Advanced Models:** Explore Convolutional Neural Networks (CNNs) to model non-linear feature interactions.
@@ -189,9 +185,10 @@ All tables use horizontal lines (`|`) with centered text alignment for uniformit
 ---
 
 ## 9. References
-1. Model, F., Adorján, P., Olek, A., & Piepenbrock, C. (2001). *Feature Selection for DNA Methylation based Cancer Classification*. Bioinformatics Discovery Note, 1(1), 1-8.
-2. Scikit-learn Documentation. (n.d.). *Feature Selection*. Retrieved from https://scikit-learn.org/stable/modules/feature_selection.html.
-3. XGBoost Documentation. (n.d.). *GPU Support*. Retrieved from https://xgboost.readthedocs.io/en/latest/gpu/index.html.
+1. Model, F., Adorján, P., Olek, A., & Piepenbrock, C. (2001). *Feature Selection for DNA Methylation based Cancer Classification*. [Instructions/PAPER1.pdf].
+2. Model, F., et al. (2001). *Additional Scientific Insights on Methylation Analysis*. [Instructions/Main_text_npj.pdf].
+3. Computational Genomics Challenge. (2025). *Project Guidelines and Objectives*. [Instructions/Challenge_2025.pdf].
+4. Presentation Material. (n.d.). *Supporting Visual and Instructional Content*. [Instructions/pptx.pdf].
 
 ---
 
