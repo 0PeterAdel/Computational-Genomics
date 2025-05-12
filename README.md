@@ -40,7 +40,6 @@ Computational-Genomics/
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/0PeterAdel/Computational-Genomics.git
 cd Computational-Genomics
 ```
 
