@@ -31,6 +31,7 @@ Computational-Genomics/
 │   ├── mutation_distribution_by_gene.png     # Bar chart of mutation distribution by top 20 genes
 │   ├── task1_predictions.csv                 # Predictions for Task 1
 │   └── task2_predictions.csv                 # Predictions for Task 2
+├── ٌReport.pdf                   # Project Report
 ├── README.md                   # This file, providing project instructions and details
 └── requirements.txt            # File listing all required Python libraries
 ```
