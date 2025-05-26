@@ -67,8 +67,22 @@ The implementation leverages GPU-accelerated computing in Google Colab for scala
 - **VarianceThreshold**: Removed constant features to reduce noise.
 - **SelectKBest**: Selected the top 100 features using ANOVA F-test, reducing dimensionality while retaining discriminative power, inspired by Model et al. (2001). This approach ensures computational efficiency while capturing the most significant features for classification.
 
----
 
+# Task 1: Genomic Features Analysis
+
+## Features Table
+
+| Feature Name          | Description                              | Practical Example                      | Scientific Reference                  |
+|-----------------------|------------------------------------------|----------------------------------------|---------------------------------------|
+| Mutation Type         | Type of genetic mutation (e.g., SNP)    | C>T substitution in melanoma          | Alexandrov et al., Nature 2013        |
+| Flanking Sequence     | 5' and 3' context around mutation       | AGT[C>T]AGC sequence                  | Nik-Zainal et al., Cell 2012          |
+| Genomic Location      | Chromosomal position of mutation        | Chr1:1234567                          | Forbes et al., Nucleic Acids Res 2017 |
+| Mutation Signature    | Pattern of mutation across samples      | Signature 1 (aging-related)           | Helleday et al., Nat Rev Genet 2014   |
+
+### Notes:
+- Each feature is linked to a therapeutic application or study for clarity.
+- References provide scientific backing for feature selection.
+---
 ## Visualizations
 
 ### Mutation Distribution Analysis
