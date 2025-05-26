@@ -3,5 +3,6 @@ numpy
 scikit-learn
 matplotlib
 xgboost
-cudf-cu12
-torch
+biopython
+#torch
+#cudf-cu12  # Optional: Install with: pip install --extra-index-url https://pypi.nvidia.com cudf-cu12

@@ -21,7 +21,7 @@ import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.feature_selection import SelectKBest, f_classif, VarianceThreshold
-from sklearn.metrics import f1_score, precision_score, recall_score, precision_recall_curve
+from sklearn.metrics import f1_score, precision_score, recall_score, precision_recall_curve, ConfusionMatrixDisplay
 from xgboost import XGBClassifier
 import cudf
 import os
@@ -72,7 +72,7 @@ print(train_feats['Label'].value_counts())
 """## Phase 2: Feature Engineering for Task 1 (Mutations)
 ### Creating Mutation Features
 - We create features from mutation data (`train_muts`, `test_muts`) for Task 1.
-- Features include: total mutations per patient, mutations per variant classification, mutations per gene and variant, mutation types (e.g., Transition, Transversion), strand bias, and normalized mutation rates per gene.
+- Features include: total mutations per patient, mutations per variant classification, mutations per gene and variant, mutation types (e.g., Transition, Transversion), and normalized mutation rates per gene.
 - These features are combined into `train_features` and `test_features` for model training.
 """
 
@@ -113,10 +113,6 @@ train_mut_types.columns = [f'Mutations_{col}' for col in train_mut_types.columns
 test_mut_types = test_muts.groupby(['case_id', 'Mut_Type']).size().unstack(fill_value=0)
 test_mut_types.columns = [f'Mutations_{col}' for col in test_mut_types.columns]
 
-# Strand bias
-train_strand = train_muts.groupby('case_id')['Mut_Strand'].apply(lambda x: (x == '+').mean()).reset_index(name='Strand_Bias')
-test_strand = test_muts.groupby('case_id')['Mut_Strand'].apply(lambda x: (x == '+').mean()).reset_index(name='Strand_Bias')
-
 # Normalized mutation rate
 genes_100['Length'] = genes_100['Sequence'].str.len()
 train_norm_muts = train_muts.groupby(['case_id', 'Gene_name']).size().reset_index(name='Count')
@@ -131,10 +127,11 @@ test_norm_muts = test_norm_muts.pivot(index='case_id', columns='Gene_name', valu
 test_norm_muts.columns = [f'Norm_Mutations_in_{col}' for col in test_norm_muts.columns]
 
 # Combine all mutation features
+# Combine features (strand bias removed)
 train_features = train_total_muts.set_index('case_id').join([train_var_counts, train_gene_var, train_mut_types,
-                                                             train_strand.set_index('case_id'), train_norm_muts]).reset_index()
+                                                             train_norm_muts]).reset_index()
 test_features = test_total_muts.set_index('case_id').join([test_var_counts, test_gene_var, test_mut_types,
-                                                           test_strand.set_index('case_id'), test_norm_muts]).reset_index()
+                                                           test_norm_muts]).reset_index()
 
 """## Phase 3: Visualizing Mutation Data
 ### Creating Visualizations for Task 1-C
@@ -251,6 +248,21 @@ feature_importance_df = pd.DataFrame({
     'Threshold': best_threshold
 })
 feature_importance_df = feature_importance_df.sort_values(by='Importance', ascending=False)
+# Save feature importance
 print("Feature Importance Table for Task 1:")
 print(feature_importance_df.head(10))
 feature_importance_df.to_csv('feature_importance_task1.csv', index=False)
+
+# Generate and Save Confusion Matrix
+print("Generating confusion matrix visualization...")
+plt.figure(figsize=(8, 6))
+disp = ConfusionMatrixDisplay.from_predictions(y_val, y_val_pred,
+                                             labels=[0, 1],
+                                             display_labels=['HNSC', 'LUSC'],
+                                             cmap='Blues')
+plt.title('Task 1: Mutation-Only Classification\nConfusion Matrix')
+plt.tight_layout()
+plt.savefig('out/confusion_matrix_task1.png', dpi=300, bbox_inches='tight')
+plt.close()
+
+print("Task 1 completed. Predictions and visualizations saved.")
