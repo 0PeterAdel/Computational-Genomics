@@ -1,103 +1,166 @@
+# 🧬 Task 1: Mutation-Based Cancer Classification
 
+Task 1 focuses on **classifying cancer patients using genomic mutation data only**.  
+This repository provides a Jupyter Notebook (`1.ipynb`) and a Python script (`1.py`) optimized for:
 
+- 🔍 Feature engineering  
+- 📊 Visualization  
+- 🤖 Machine learning classification  
 
+The code is designed to run on environments with **GPU support** (e.g., Google Colab), but it also works on CPU.
 
-Task 1: Mutation-Based Cancer Classification
-Task 1 focuses on classifying cancer patients using genomic mutation data only. This repository provides a Jupyter Notebook (1.ipynb) and a Python script (1.py) optimized for feature engineering, visualization, and machine learning classification. The code is designed to run on environments with GPU support (e.g., Google Colab) but can also operate on CPU.
-The project processes mutation datasets to generate features such as total mutations, variant classifications, gene-specific mutations, mutation types (Transition, Transversion, etc.), and normalized mutation rates. Our analysis provides comprehensive visualizations of mutation patterns and their relationship to cancer subtypes.
-Note: The feature extraction process includes the use of extract_sequences.py, which retrieves flanking sequences around mutation sites to capture the genomic context. This helps in analyzing mutation patterns more accurately by considering the local DNA environment.
+---
+
+## 🧪 Project Description
+
+The project processes mutation datasets to generate features such as:
+
+- Total mutations
+- Variant classifications
+- Gene-specific mutations
+- Mutation types: *Transition*, *Transversion*, etc.
+- Normalized mutation rates
+
+The analysis includes **comprehensive visualizations** of mutation patterns and their relationship to cancer subtypes.
+
+> **Note**: Feature extraction uses `extract_sequences.py` to retrieve *flanking sequences* around mutation sites.  
+This improves mutation pattern analysis by capturing the **local genomic context**.
 
 ![Genomics](https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExN3IwbjduemRsaXZ4OHRwbmZyZjYyNHoxZWoxaGxhbW1mN2RjMDc4MSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/uHV4veFjX22Pu/giphy.gif)
 
-📦 Project Structure
+---
+
+## 📦 Project Structure
+
+```
+
 Task1/
-├── 1.ipynb                  # Jupyter Notebook for Task 1 with Markdown and code cells
-├── 1.py                     # Python script equivalent of 1.ipynb
-├── out/                     # Contains generated outputs
-│   ├── feature_importance_task1.csv  # Feature importance scores from the classifier
-│   ├── mutation_distribution_by_cancer_and_variant.png  # Bar chart of mutation distribution across cancer types
-│   ├── mutation_distribution_by_gene.png  # Bar chart of top 20 genes by mutation count
-│   ├── confusion_matrix_task1.png   # Confusion matrix showing model validation performance
-│   └── task1_predictions.csv        # Prediction file for Task 1
-└── README.md                # This file, providing instructions and details
+├── 1.ipynb                            # Jupyter Notebook for Task 1
+├── 1.py                               # Python script version of 1.ipynb
+├── out/                               # Generated outputs
+│   ├── feature\_importance\_task1.csv   # Feature importance scores
+│   ├── mutation\_distribution\_by\_cancer\_and\_variant.png
+│   ├── mutation\_distribution\_by\_gene.png
+│   ├── confusion\_matrix\_task1.png     # Validation performance
+│   └── task1\_predictions.csv          # Final predictions
+└── README.md                          # Project instructions and documentation
 
-🔧 Installation
-Prerequisites
+````
 
-Python 3.8 or higher
-CUDA-capable GPU (recommended) or CPU
-Git
+---
 
-Set Up Environment
-Choose one of the following options:
-Using Conda
+## 🔧 Installation
+
+### Prerequisites
+- Python 3.8 or higher  
+- CUDA-capable GPU (recommended) or CPU  
+- Git  
+
+### 🛠️ Set Up Environment
+
+#### Option 1: Using Conda
+```bash
 # Create and activate conda environment
 conda create -n task1 python=3.8
 conda activate task1
 
-# Install CUDA toolkit for GPU support
+# Install CUDA toolkit
 conda install -c conda-forge cudatoolkit=11.7
 
 # Install required packages
-pip install -r ../../requirements.txt
+pip install -r requirements.txt
+````
 
-Using Virtual Environment
+#### Option 2: Using Virtual Environment
+
+```bash
 # Create virtual environment
 python -m venv .venv
 
-# Activate virtual environment
+# Activate environment
 source .venv/bin/activate
 
-# Install required packages
-pip install -r ../../requirements.txt
+# Install packages
+pip install -r requirements.txt
+```
 
-🚀 Usage
-Data Preparation
+---
 
-Ensure the following files are available:
-DataSet/train_muts_data.csv
-DataSet/test_muts_data.csv
-DataSet/train_feats.csv
-DataSet/test_feats.csv
-DataSet/100_genes.csv
+## 🚀 Usage
 
+### 📁 Data Preparation
 
+Ensure the following files are available in `DataSet/`:
 
-Running the Code
-Using Jupyter Notebook
+* `train_muts_data.csv`
+* `test_muts_data.csv`
+* `train_feats.csv`
+* `test_feats.csv`
+* `100_genes.csv`
+
+### ▶️ Running the Code
+
+#### Using Jupyter Notebook:
+
+```bash
 jupyter notebook 1.ipynb
+```
 
-Using Python Script
-> python 1.py
+#### Using Python Script:
 
-📊 Outputs
-The code generates the following outputs in the out/ directory:
+```bash
+python 1.py
+```
 
-feature_importance_task1.csv: Feature importance scores from the classifier
-mutation_distribution_by_cancer_and_variant.png: Distribution of mutations across cancer types (using both train and test data)
-mutation_distribution_by_gene.png: Top 20 genes by mutation count (using both train and test data)
-confusion_matrix_task1.png: Confusion matrix showing model validation performance
-task1_predictions.csv: Final predictions with id_case and label_predict columns
+---
 
-Note: Visualizations are generated using the combined train and test datasets to provide a comprehensive view of mutation patterns.
-📈 Performance Metrics
-Task 1 achieves the following baseline performance:
+## 📊 Outputs
 
-F1-Score: 0.658
-Precision: 0.676
-Recall: 0.664
+The following outputs are saved in the `out/` directory:
 
-These metrics serve as a baseline for comparison with the integrated approach in Task 2.
-Note: The error rate is calculated on the validation set, which is split from the training data (80/20 split) to ensure accurate model evaluation.
-🔬 Additional Notes
+* `feature_importance_task1.csv`: Feature importance scores
+* `mutation_distribution_by_cancer_and_variant.png`: Mutation distribution across cancer types
+* `mutation_distribution_by_gene.png`: Top 20 mutated genes
+* `confusion_matrix_task1.png`: Validation performance
+* `task1_predictions.csv`: Final predictions with `id_case` and `label_predict` columns
 
-Strand Bias Feature: The Strand Bias feature was removed from the analysis as it was constant and did not provide useful information, reducing noise in the dataset.
-Mutation Type Classification: The classify_mutation function accurately categorizes mutations into Transition, Transversion, Deletion, Insertion, or Other based on reference and tumor alleles.
-Classification Process: The classification is performed using RandomForest and XGBoost models with hyperparameter tuning via GridSearchCV. The best model is selected based on F1-Score.
+> **Note**: Visualizations use **combined train/test data** for a complete overview.
 
+---
 
+## 📈 Performance Metrics
 
-🔬 **Happy analyzing genomic data!**
+| Metric    | Value |
+| --------- | ----- |
+| F1-Score  | 0.658 |
+| Precision | 0.676 |
+| Recall    | 0.664 |
+
+> These metrics are calculated using an **80/20 validation split** from training data.
+> They serve as the baseline for comparison with Task 2.
+
+---
+
+## 🧬 Additional Notes
+
+* **Strand Bias Feature**: Removed due to constant value (noise reduction).
+* **Mutation Type Classification**: `classify_mutation()` categorizes mutations into:
+
+  * Transition
+  * Transversion
+  * Deletion
+  * Insertion
+  * Other
+* **Classification Models**:
+
+  * RandomForest
+  * XGBoost
+  * Hyperparameter tuning via `GridSearchCV`
+  * Best model selected based on **F1-Score**
+
+---
+
+## 🔬 **Happy analyzing genomic data!**
 
 <p align="center">
   <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&height=65&section=footer"/>
