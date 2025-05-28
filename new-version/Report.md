@@ -2,7 +2,7 @@
 
 ## 🧬 Classification of Cancer Patients Using Genomic Mutation and Methylation Data
 
-### 👩‍💻 Author: *Peter Adel*
+### 👩‍💻 Author: *Taqwa*
 
 ### 📅 Date: *May 26, 2025*
 
